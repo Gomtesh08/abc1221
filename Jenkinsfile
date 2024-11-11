@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Define Java Home if necessary, here we assume OpenJDK 11
+        // Define Java Home if necessary (example for OpenJDK 11)
         JAVA_HOME = '/usr/lib/jvm/java-11-openjdk-amd64'
         PATH = "${JAVA_HOME}/bin:${PATH}"
     }
@@ -10,26 +10,25 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Pull the code from your GitHub repository
-                git branch: 'main', url: 'https://github.com/your-username/your-java-app.git'
+                // Checkout the code from GitHub
+                git branch: 'main', url: 'https://github.com/your-username/your-repo-name.git'
             }
         }
 
-        stage('Build') {
+        stage('Compile') {
             steps {
                 script {
-                    // Run Maven to clean, compile, test, and package the application
-                    sh 'mvn clean install'
+                    // Compile the HelloWorld.java file
+                    sh 'javac HelloWorld.java'
                 }
             }
         }
 
-        stage('Run Application') {
+        stage('Run') {
             steps {
                 script {
-                    // Assuming the built JAR is in the target directory
-                    // Run the Java application (replace 'your-app-name.jar' with your actual JAR file name)
-                    sh 'java -jar target/your-app-name.jar'
+                    // Run the compiled Java program
+                    sh 'java HelloWorld'
                 }
             }
         }
@@ -37,18 +36,18 @@ pipeline {
 
     post {
         always {
-            // This will always run, even if the build fails
+            // Actions to perform after the build finishes, regardless of success or failure
             echo 'Build completed.'
         }
 
         success {
-            // If the build is successful, we can perform additional actions
-            echo 'Build and application run completed successfully.'
+            // Actions to perform if the build succeeds
+            echo 'HelloWorld program ran successfully.'
         }
 
         failure {
-            // If the build fails, this will notify or take action
-            echo 'Build or application run failed.'
+            // Actions to perform if the build fails
+            echo 'Build or execution failed.'
         }
     }
 }
