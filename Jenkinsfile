@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout the code from GitHub
-                git branch: 'main', url: 'https://github.com/your-username/your-repo-name.git'
+                git branch: 'main', url: 'https://github.com/Gomtesh08/abc1221.git'
             }
         }
 
